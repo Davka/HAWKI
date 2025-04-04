@@ -132,9 +132,9 @@ class AuthenticationController extends Controller
     }
 
 
-    public function startOpenIDLogin(Request $request): array|JsonResponse
+    public function startOpenIDLogin(Request $request)
     {
-        return $this->oidcService->authenticate($request);
+        $this->oidcService->startAuthentication();
     }
 
     public function openIDLogin(Request $request)
