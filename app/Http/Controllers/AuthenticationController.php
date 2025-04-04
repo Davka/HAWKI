@@ -140,28 +140,22 @@ class AuthenticationController extends Controller
     public function openIDLogin(Request $request)
     {
         try {
-            $authenticatedUserInfo = $this->oidcService->authenticate($request);
+            $userInfo = $this->oidcService->handleCallback();
 
-            if (!$authenticatedUserInfo) {
-                return response()->json(['error' => 'Login Failed!'], 401);
-            }
-
-            Log::info('LOGIN: ' . $authenticatedUserInfo['username']);
-
-            $user = User::where('username', $authenticatedUserInfo['username'])->first();
+            $user = User::where('username', $userInfo['username'])->first();
 
             if ($user) {
                 Auth::login($user);
                 return redirect('/handshake');
             }
 
-            Session::put('registration_access', true);
-            Session::put('authenticatedUserInfo', json_encode($authenticatedUserInfo));
+            session()->put('registration_access', true);
+            session()->put('authenticatedUserInfo', json_encode($userInfo));
 
             return redirect('/register');
 
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['error' => 'Authentication failed: ' . $e->getMessage()], 401);
         }
     }
 
