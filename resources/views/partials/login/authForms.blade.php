@@ -1,7 +1,7 @@
 @if($authenticationMethod === 'OIDC')
-    <form class="form-column" method="post" id="loginForm-OIDC" action="/req/login-oidc">
+    <form class="form-column" method="post" id="loginForm-OIDC" action="/req/start-oidc">
         @csrf
-        <button id="loginButton" class="btn-lg align-end top-gap-1">{{ $translation['Login'] }}</button>
+        <button id="loginButton" class="btn-lg-fill align-end top-gap-1">{{ $translation['Login'] }}</button>
     </form>
 @elseif($authenticationMethod === 'LDAP' || $authenticationMethod === 'TestAuth')
     <form class="form-column" id="loginForm-LDAP">
