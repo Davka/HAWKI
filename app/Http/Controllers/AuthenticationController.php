@@ -134,6 +134,7 @@ class AuthenticationController extends Controller
 
     public function startOpenIDLogin(Request $request): array|JsonResponse
     {
+        $this->oidcService->oidc->setRedirectURL(route('/req/login-oidc'));
         return $this->oidcService->authenticate($request);
     }
 

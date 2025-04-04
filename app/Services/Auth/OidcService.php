@@ -11,7 +11,7 @@ use Exception;
 
 class OidcService
 {
-    protected $oidc;
+    public $oidc;
 
     public function __construct()
     {
