@@ -30,7 +30,7 @@ class OidcService
 
         // Initialize the OpenID Connect client
         $this->oidc = new OpenIDConnectClient($idp, $clientId, $clientSecret);
-        $this->oidc->setRedirectURL(route('/req/login-oidc'));
+        $this->oidc->setRedirectURL(route('oidc.callback'));
 
         // Add scopes as an array
         $scopes = config('open_id_connect.oidc_scopes');
