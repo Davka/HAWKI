@@ -11,7 +11,7 @@ use Exception;
 
 class OidcService
 {
-    public $oidc;
+    protected $oidc;
 
     public function __construct()
     {
@@ -30,6 +30,7 @@ class OidcService
 
         // Initialize the OpenID Connect client
         $this->oidc = new OpenIDConnectClient($idp, $clientId, $clientSecret);
+        $this->oidc->setRedirectURL(route('/req/login-oidc'));
 
         // Add scopes as an array
         $scopes = config('open_id_connect.oidc_scopes');
