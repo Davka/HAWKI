@@ -32,6 +32,10 @@ class OidcService
     public function startAuthentication()
     {
         $this->oidc->authenticate();
+
+        $userInfo = $this->oidc->requestUserInfo();
+
+        dd($userInfo);
         exit;
     }
 
