@@ -1,4 +1,5 @@
 {
+    "name": "hawki",
     "private": true,
     "type": "module",
     "scripts": {
