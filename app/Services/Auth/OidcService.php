@@ -26,44 +26,16 @@ class OidcService
         $this->oidc->addScope($scopes);
     }
 
-    /**
-     * Startet die Weiterleitung zum Identity Provider (IDP)
-     */
-    public function startAuthentication()
+    public function handleCallback(): array
     {
         $this->oidc->authenticate();
 
         $userInfo = $this->oidc->requestUserInfo();
-
-        dd($userInfo);
-        exit;
-    }
-
-    public function handleCallback(): array
-    {
-        $userInfo = $this->oidc->requestUserInfo();
-
-        dd($userInfo);
-        $firstNameAttr = config('open_id_connect.attribute_map.firstname');
-        $lastNameAttr = config('open_id_connect.attribute_map.lastname');
-        $emailAttr = config('open_id_connect.attribute_map.email');
-        $employeetypeAttr = config('open_id_connect.attribute_map.employeetype');
-
-        $email = $this->oidc->requestUserInfo($emailAttr);
-        $employeetype = $this->oidc->requestUserInfo($employeetypeAttr);
-        $firstname = $this->oidc->requestUserInfo($firstNameAttr);
-        $surname = $this->oidc->requestUserInfo($lastNameAttr);
-        $name = trim("$firstname $surname");
-
-        if (!empty($_SERVER['REMOTE_USER'])) {
-            return [
-                'username' => $_SERVER['REMOTE_USER'],
-                'name' => $name,
-                'email' => $email,
-                'employeetype' => $employeetype,
-            ];
-        }
-
-        throw new \RuntimeException('REMOTE_USER is not set.');
+        return [
+            'username' => $userInfo['preferred_username'],
+            'name' => $userInfo['name'],
+            'email' => $userInfo['email'],
+            'employeetype' => '',
+        ];
     }
 }

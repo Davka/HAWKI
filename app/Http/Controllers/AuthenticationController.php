@@ -131,12 +131,6 @@ class AuthenticationController extends Controller
         }
     }
 
-
-    public function startOpenIDLogin(Request $request)
-    {
-        $this->oidcService->startAuthentication();
-    }
-
     public function openIDLogin(Request $request)
     {
         try {

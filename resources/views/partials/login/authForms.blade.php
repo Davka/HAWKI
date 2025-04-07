@@ -1,5 +1,5 @@
 @if($authenticationMethod === 'OIDC')
-    <form class="form-column" method="post" id="loginForm-OIDC" action="/req/start-oidc">
+    <form class="form-column" method="post" id="loginForm-OIDC" action="{{ route('oidc.callback') }}">
         @csrf
         <button id="loginButton" class="btn-lg-fill align-end top-gap-1">{{ $translation['Login'] }}</button>
     </form>
