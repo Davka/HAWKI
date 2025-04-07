@@ -41,9 +41,9 @@ class OidcService
 
     public function handleCallback(): array
     {
+        $userInfo = $this->oidc->requestUserInfo();
 
-        $this->oidc->authenticate();
-
+        dd($userInfo);
         $firstNameAttr = config('open_id_connect.attribute_map.firstname');
         $lastNameAttr = config('open_id_connect.attribute_map.lastname');
         $emailAttr = config('open_id_connect.attribute_map.email');
