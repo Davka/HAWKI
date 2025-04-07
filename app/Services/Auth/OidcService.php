@@ -32,9 +32,9 @@ class OidcService
 
         $userInfo = $this->oidc->requestUserInfo();
         return [
-            'username' => $userInfo['preferred_username'],
-            'name' => $userInfo['name'],
-            'email' => $userInfo['email'],
+            'username' => $userInfo->preferred_username,
+            'name' => $userInfo->name,
+            'email' => $userInfo->email,
             'employeetype' => '',
         ];
     }
